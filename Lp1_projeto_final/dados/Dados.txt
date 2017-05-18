@@ -1,0 +1,7 @@
+10000
+Refrigerante Coca-Cola 2L
+L (Litros)
+Bebida
+1
+2.0
+3.8
