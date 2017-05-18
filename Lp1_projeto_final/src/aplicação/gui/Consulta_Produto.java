@@ -7,7 +7,9 @@ package aplicação.gui;
 
 import aplicação.dados.Estoque;
 import static aplicação.gui.Main.Tela_Principal;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import aplicação.gui.Detalhes_Produto;
 
 
 /**
@@ -81,6 +83,11 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        Tabela_Dados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabela_DadosMouseClicked(evt);
             }
         });
         Painel_Info.setViewportView(Tabela_Dados);
@@ -191,6 +198,14 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_Adicionar_BotaoActionPerformed
 
+    private void Tabela_DadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabela_DadosMouseClicked
+        Detalhes_Produto frame = new Detalhes_Produto(estoque.getProduto(Tabela_Dados.rowAtPoint(evt.getPoint())).getCodigo());
+        Tela_Principal.add(frame);
+        frame.setVisible(true);
+    }//GEN-LAST:event_Tabela_DadosMouseClicked
+
+    
+    
     public Object[] preencheTabela(int i) {
         try {
             Object[] dados = {estoque.getProduto(i).getCodigo(), estoque.getProduto(i).getNome(), estoque.getProduto(i).getUnidade(),

@@ -5,15 +5,9 @@
  */
 package aplicação.gui;
 
-import aplicação.ferramentas.ManipularImagem;
-import aplicação.dados.Produto;
 import aplicação.dados.Estoque;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import java.text.DecimalFormat;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -24,8 +18,9 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
     /**
      * Creates new form Janela_Cadastra_Produto
      */
-    public Detalhes_Produto() {
+    public Detalhes_Produto(int codigo) {
         initComponents();
+        iniciaDetalhes(codigo);
     }
 
     /**
@@ -56,6 +51,7 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
         Secao = new javax.swing.JLabel();
         P_Venda = new javax.swing.JLabel();
         P_Custo = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         Janela_Cadastra_Produto.setVisible(true);
 
@@ -96,9 +92,11 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
 
         Salvar.setText("Editar");
 
-        Cancelar.setText("Cancelar");
+        Cancelar.setText("Excluir");
 
         Imagem.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jButton1.setText("jButton1");
 
         javax.swing.GroupLayout Painel_PrincipalLayout = new javax.swing.GroupLayout(Painel_Principal);
         Painel_Principal.setLayout(Painel_PrincipalLayout);
@@ -135,13 +133,15 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
                         .addComponent(T_Codigo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Codigo)))
-                .addGap(18, 205, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
                 .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(Painel_PrincipalLayout.createSequentialGroup()
-                        .addComponent(Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Cancelar)))
+                    .addComponent(Imagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(Cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_PrincipalLayout.createSequentialGroup()
+                            .addComponent(Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton1))))
                 .addContainerGap())
         );
         Painel_PrincipalLayout.setVerticalGroup(
@@ -173,20 +173,16 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(T_Preco_Custo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(P_Custo))
+                    .addComponent(P_Custo)
+                    .addComponent(jButton1)
+                    .addComponent(Salvar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Painel_PrincipalLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Cancelar)
-                            .addComponent(Salvar))
-                        .addGap(20, 20, 20))
-                    .addGroup(Painel_PrincipalLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(T_Preco_Venda, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(P_Venda))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(T_Preco_Venda, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(P_Venda))
+                    .addComponent(Cancelar))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -200,14 +196,13 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
             .addComponent(Painel_Principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        iniciaDetalhes();
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void iniciaDetalhes(){
-        int i, codigo = Integer.parseInt(JOptionPane.showInputDialog("Entre com o código do produto desejado:"));
+    public void iniciaDetalhes(int codigo){
+        int i;
         DecimalFormat d = new DecimalFormat("0.00");
+        estoque = new Estoque();
         estoque.carregarDados(estoque.getLista());
         for(i=0;i<estoque.getQuantidade();i++){
             if(estoque.getProduto(i).getCodigo()==codigo){
@@ -218,6 +213,7 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
                 Secao.setText(String.valueOf(estoque.getProduto(i).getSecao()));
                 P_Custo.setText(d.format(estoque.getProduto(i).getCusto()));
                 P_Venda.setText(d.format(estoque.getProduto(i).getPreco()));
+                Imagem.setIcon(new ImageIcon(estoque.getProduto(i).getImagem()));
             }
         } 
     }
@@ -242,6 +238,7 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel T_Secao2;
     private javax.swing.JLabel T_Unidade;
     private javax.swing.JLabel Unidade;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
     private Estoque estoque;
 }

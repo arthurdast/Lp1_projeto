@@ -6,6 +6,7 @@
 package aplicação.gui;
 
 import aplicação.dados.Estoque;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -177,7 +178,7 @@ public class Main extends javax.swing.JFrame {
     }
     
     private void abrir_detalhesProduto(){
-        Detalhes_Produto frame = new Detalhes_Produto();
+        Detalhes_Produto frame = new Detalhes_Produto(Integer.parseInt(JOptionPane.showInputDialog("Entre com o código do produto a ser editado:")));
         Tela_Principal.add(frame);
         frame.setVisible(true);
     }

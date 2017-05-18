@@ -25,7 +25,7 @@ public class Estoque implements Serializable {
     public void salvarDados(ArrayList<Produto> E) {
         int i, j;
         try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream("myfile.ser"));
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream("Dados.ser"));
             ArrayList<Produto> X = (ArrayList<Produto>) in.readObject();
             in.close();
             for(i=0;i<E.size();i++){
@@ -36,7 +36,7 @@ public class Estoque implements Serializable {
                 }
             }
             X.addAll(E);
-            FileOutputStream fos = new FileOutputStream("myfile.ser");
+            FileOutputStream fos = new FileOutputStream("Dados.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(X);
             oos.flush();
@@ -50,7 +50,7 @@ public class Estoque implements Serializable {
     public void carregarDados(ArrayList<Produto> E) {
         int i, j;
         try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream("myfile.ser"));
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream("Dados.ser"));
             ArrayList<Produto> X = (ArrayList<Produto>) in.readObject();
             in.close();
             ArrayList<Produto> Z = new ArrayList<>();
