@@ -10,8 +10,11 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import aplicação.ferramentas.exceções.ConflictException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,53 +23,44 @@ import javax.swing.JOptionPane;
  */
 public class Estoque implements Serializable {
 
-    private ArrayList<Produto> lista = new ArrayList<>();
+    private ArrayList<Produto> lista;
 
-    public void salvarDados(ArrayList<Produto> E) {
-        int i, j;
+    public Estoque() {
+        lista = new ArrayList<>();
+        carregarDados();
+    }
+
+    public void salvarDados() {
         try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream("Dados.ser"));
-            ArrayList<Produto> X = (ArrayList<Produto>) in.readObject();
-            in.close();
-            for(i=0;i<E.size();i++){
-                for(j=0;j<X.size();j++){
-                    if(E.get(i).getCodigo()==X.get(j).getCodigo()){
-                        throw new ConflictException("O código digitado já está em uso.");
-                    }
-                }
+            FileOutputStream out = new FileOutputStream("Dados.ser");
+            ObjectOutputStream objOut = new ObjectOutputStream(out);
+            objOut.writeObject(lista);
+            objOut.flush();
+            objOut.close();
+            System.out.println("aplicação.dados.Estoque.salvarDados()");
+            for (Produto produto : lista) {
+                System.out.println("CODIGO="+produto.getCodigo());
             }
-            X.addAll(E);
-            FileOutputStream fos = new FileOutputStream("Dados.ser");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(X);
-            oos.flush();
-            oos.close();
-            fos.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex, "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Estoque.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Estoque.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void carregarDados(ArrayList<Produto> E) {
-        int i, j;
+    private void carregarDados() {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream("Dados.ser"));
-            ArrayList<Produto> X = (ArrayList<Produto>) in.readObject();
-            in.close();
-            ArrayList<Produto> Z = new ArrayList<>();
-            Z.addAll(X);
-            Z.addAll(E);
-            for (i = 0; i < Z.size(); i++) {
-                for (j = 0; j < X.size(); j++) {
-                    if (!X.contains(Z.get(i))) {
-                        E.add(X.get(j));
-                    }
-                }
+            this.lista = (ArrayList<Produto>) in.readObject();
+            System.out.println("aplicação.dados.Estoque.carregarDados()");
+            for (Produto produto : lista) {
+                System.out.println("CODIGO="+produto.getCodigo());
             }
-            E.clear();
-            E.addAll(Z);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex, "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Arquivo de dados não encontrado, arquivo limpo foi criado ", "Erro 1 ", JOptionPane.ERROR_MESSAGE);
+            salvarDados();
+        } catch (IOException | ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex, "Erro 1 ", JOptionPane.ERROR_MESSAGE);
         }
     }
 

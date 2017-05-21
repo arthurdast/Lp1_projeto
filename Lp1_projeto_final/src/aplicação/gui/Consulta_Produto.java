@@ -6,11 +6,9 @@
 package aplicação.gui;
 
 import aplicação.dados.Estoque;
+import aplicação.dados.Produto;
 import static aplicação.gui.Main.Tela_Principal;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import aplicação.gui.Detalhes_Produto;
-
 
 /**
  *
@@ -23,6 +21,7 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
      */
     public Consulta_Produto() {
         initComponents();
+       
     }
 
     /**
@@ -186,7 +185,7 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void Fechar_BotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Fechar_BotaoActionPerformed
         this.dispose();
     }//GEN-LAST:event_Fechar_BotaoActionPerformed
@@ -202,14 +201,13 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
         Detalhes_Produto frame = new Detalhes_Produto(estoque.getProduto(Tabela_Dados.rowAtPoint(evt.getPoint())).getCodigo());
         Tela_Principal.add(frame);
         frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_Tabela_DadosMouseClicked
 
-    
-    
-    public Object[] preencheTabela(int i) {
+    public Object[] preencheTabela(Produto p) {
         try {
-            Object[] dados = {estoque.getProduto(i).getCodigo(), estoque.getProduto(i).getNome(), estoque.getProduto(i).getUnidade(),
-                estoque.getProduto(i).getSecao(), estoque.getProduto(i).getQuantidade(), estoque.getProduto(i).getCusto(), estoque.getProduto(i).getPreco()};
+            Object[] dados = {p.getCodigo(),p.getNome(), p.getUnidade(),
+                p.getSecao(), p.getQuantidade(), p.getCusto(), p.getPreco()};
             return dados;
         } catch (ArrayIndexOutOfBoundsException n) {
             return null;
@@ -217,15 +215,12 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
     }
 
     public void atualizaTabela() {
-        estoque.carregarDados(estoque.getLista());
         DefaultTableModel modelo = (DefaultTableModel) Tabela_Dados.getModel();
-        int i;
-        for (i = 0; i < estoque.getQuantidade(); i++) {
-            if (preencheTabela(i) == null) {
-                break;
-            }
-            modelo.addRow(preencheTabela(i));
+        for (Produto p : estoque.getLista()) {
+            System.out.println(p.getCodigo());
+            modelo.addRow(preencheTabela(p));
         }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -243,6 +238,5 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
     private javax.swing.JTable Tabela_Dados;
     private javax.swing.JLabel Titulo;
     // End of variables declaration//GEN-END:variables
-    private Estoque estoque;
+    private Estoque estoque = new Estoque();
 }
-

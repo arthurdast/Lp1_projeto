@@ -20,7 +20,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Grupo
+ * @author marcelosiedler(google)
  */
 public class ManipularImagem {
 

@@ -6,8 +6,12 @@
 package aplicação.gui;
 
 import aplicação.dados.Estoque;
+import aplicação.dados.Produto;
 import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
+import static aplicação.gui.Main.Tela_Principal;
+import aplicação.gui.Main;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,8 +23,38 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
      * Creates new form Janela_Cadastra_Produto
      */
     public Detalhes_Produto(int codigo) {
+        this.codigo = codigo;
         initComponents();
         iniciaDetalhes(codigo);
+    }
+
+    public void iniciaDetalhes(int codigo) {
+        int i;
+        DecimalFormat d = new DecimalFormat("0.00");        
+        for (Produto p : estoque.getLista()) {
+            if (p.getCodigo() == codigo) {
+                LabelCodigo.setText(String.valueOf(p.getCodigo()));
+                LabelNome.setText(p.getNome());
+                LabelSecao.setText(p.getSecao());
+                LabelUnidade.setText(p.getUnidade());
+                LabelCusto.setText(Double.toString(p.getCusto()));
+                LabelVenda.setText(Double.toString(p.getPreco()));
+                LabelQuantidade.setText(String.valueOf(p.getQuantidade()));
+                try {
+                    LabelImagem.setIcon(new ImageIcon(p.getImagem()));
+                } catch (Exception e) {
+                    System.out.println("erro reden image");
+                }
+                
+            }
+        }
+    }
+
+    private void abrir_EditarProduto(int codigo) {
+        Editar_Produto frame = new Editar_Produto(codigo);
+        Tela_Principal.add(frame);
+        frame.setVisible(true);
+        this.dispose();
     }
 
     /**
@@ -42,8 +76,8 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
         T_Preco_Custo = new javax.swing.JLabel();
         T_Secao2 = new javax.swing.JLabel();
         Salvar = new javax.swing.JButton();
-        Cancelar = new javax.swing.JButton();
-        Imagem = new javax.swing.JLabel();
+        Excluir = new javax.swing.JButton();
+        LabelImagem = new javax.swing.JLabel();
         Codigo = new javax.swing.JLabel();
         Nome = new javax.swing.JLabel();
         Quantidade = new javax.swing.JLabel();
@@ -52,6 +86,13 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
         P_Venda = new javax.swing.JLabel();
         P_Custo = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        LabelCodigo = new javax.swing.JLabel();
+        LabelNome = new javax.swing.JLabel();
+        LabelQuantidade = new javax.swing.JLabel();
+        LabelUnidade = new javax.swing.JLabel();
+        LabelSecao = new javax.swing.JLabel();
+        LabelCusto = new javax.swing.JLabel();
+        LabelVenda = new javax.swing.JLabel();
 
         Janela_Cadastra_Produto.setVisible(true);
 
@@ -91,12 +132,36 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
         T_Secao2.setText("Seção:");
 
         Salvar.setText("Editar");
+        Salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalvarActionPerformed(evt);
+            }
+        });
 
-        Cancelar.setText("Excluir");
+        Excluir.setText("Excluir");
+        Excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirActionPerformed(evt);
+            }
+        });
 
-        Imagem.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        LabelImagem.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jButton1.setText("jButton1");
+
+        LabelCodigo.setText("jLabel1");
+
+        LabelNome.setText("jLabel2");
+
+        LabelQuantidade.setText("jLabel3");
+
+        LabelUnidade.setText("jLabel4");
+
+        LabelSecao.setText("jLabel5");
+
+        LabelCusto.setText("jLabel6");
+
+        LabelVenda.setText("jLabel7");
 
         javax.swing.GroupLayout Painel_PrincipalLayout = new javax.swing.GroupLayout(Painel_Principal);
         Painel_Principal.setLayout(Painel_PrincipalLayout);
@@ -104,40 +169,74 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
             Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Painel_PrincipalLayout.createSequentialGroup()
-                        .addComponent(T_Preco_Venda)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(P_Venda))
-                    .addGroup(Painel_PrincipalLayout.createSequentialGroup()
-                        .addComponent(T_Preco_Custo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(P_Custo))
+                .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addComponent(T_Secao2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Secao))
+                        .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(Secao))
+                            .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelSecao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addComponent(T_Unidade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Unidade))
+                        .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(Unidade))
+                            .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelUnidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addComponent(T_Quantidade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Quantidade))
+                        .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(Quantidade))
+                            .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addComponent(T_Nome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Nome))
+                        .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(Nome))
+                            .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addComponent(T_Codigo)
+                        .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(Codigo))
+                            .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_PrincipalLayout.createSequentialGroup()
+                        .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                .addComponent(T_Preco_Venda)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Painel_PrincipalLayout.createSequentialGroup()
+                                .addComponent(T_Preco_Custo)
+                                .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                        .addGap(46, 46, 46)
+                                        .addComponent(P_Custo))
+                                    .addGroup(Painel_PrincipalLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(LabelCusto, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Codigo)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                        .addComponent(P_Venda)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Imagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LabelImagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Excluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_PrincipalLayout.createSequentialGroup()
                             .addComponent(Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -149,40 +248,47 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
             .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(T_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Codigo))
+                            .addComponent(Codigo)
+                            .addComponent(LabelCodigo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(T_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Nome))
+                            .addComponent(Nome)
+                            .addComponent(LabelNome))
                         .addGap(18, 18, 18)
                         .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(T_Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Quantidade))
+                            .addComponent(Quantidade)
+                            .addComponent(LabelQuantidade))
                         .addGap(18, 18, 18)
                         .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(T_Unidade, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Unidade))
+                            .addComponent(Unidade)
+                            .addComponent(LabelUnidade))
                         .addGap(18, 18, 18)
                         .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(T_Secao2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Secao))))
+                            .addComponent(Secao)
+                            .addComponent(LabelSecao)))
+                    .addComponent(LabelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(T_Preco_Custo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(P_Custo)
                     .addComponent(jButton1)
-                    .addComponent(Salvar))
+                    .addComponent(Salvar)
+                    .addComponent(LabelCusto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(T_Preco_Venda, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(P_Venda))
-                    .addComponent(Cancelar))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addComponent(P_Venda)
+                        .addComponent(LabelVenda))
+                    .addComponent(Excluir))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -199,30 +305,38 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void iniciaDetalhes(int codigo){
-        int i;
-        DecimalFormat d = new DecimalFormat("0.00");
-        estoque = new Estoque();
-        estoque.carregarDados(estoque.getLista());
-        for(i=0;i<estoque.getQuantidade();i++){
-            if(estoque.getProduto(i).getCodigo()==codigo){
-                Codigo.setText(String.valueOf(estoque.getProduto(i).getCodigo()));
-                Nome.setText(estoque.getProduto(i).getNome());
-                Quantidade.setText(String.valueOf(estoque.getProduto(i).getQuantidade()));
-                Unidade.setText(estoque.getProduto(i).getUnidade());
-                Secao.setText(String.valueOf(estoque.getProduto(i).getSecao()));
-                P_Custo.setText(d.format(estoque.getProduto(i).getCusto()));
-                P_Venda.setText(d.format(estoque.getProduto(i).getPreco()));
-                Imagem.setIcon(new ImageIcon(estoque.getProduto(i).getImagem()));
+    private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
+        abrir_EditarProduto(codigo);
+    }//GEN-LAST:event_SalvarActionPerformed
+
+    private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
+
+        for (Produto p : estoque.getLista()) {
+            if (p.getCodigo() == codigo) {
+                this.dispose();
+                estoque.getLista().remove(codigo);
+                estoque.salvarDados();
+                break;
+
             }
-        } 
-    }
+        }
+        JOptionPane.showMessageDialog(null, "Codigo não encontrado");
+
+    }//GEN-LAST:event_ExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Cancelar;
     private javax.swing.JLabel Codigo;
-    private javax.swing.JLabel Imagem;
+    private javax.swing.JButton Excluir;
     private javax.swing.JInternalFrame Janela_Cadastra_Produto;
+    private javax.swing.JLabel LabelCodigo;
+    private javax.swing.JLabel LabelCusto;
+    private javax.swing.JLabel LabelImagem;
+    private javax.swing.JLabel LabelNome;
+    private javax.swing.JLabel LabelQuantidade;
+    private javax.swing.JLabel LabelSecao;
+    private javax.swing.JLabel LabelUnidade;
+    private javax.swing.JLabel LabelVenda;
     private javax.swing.JLabel Nome;
     private javax.swing.JLabel P_Custo;
     private javax.swing.JLabel P_Venda;
@@ -240,5 +354,6 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Unidade;
     private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
-    private Estoque estoque;
+    private Estoque estoque = new Estoque();
+    private int codigo;
 }

@@ -12,18 +12,24 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import static aplicação.gui.Main.Tela_Principal;
+import java.text.DecimalFormat;
 
 /**
  *
  * @author aluno
  */
-public class Cadastra_Produto extends javax.swing.JInternalFrame {
+public class Editar_Produto extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Janela_Cadastra_Produto
+     *
+     * @param codigo
      */
-    public Cadastra_Produto() {
+    public Editar_Produto(int codigo) {
+        this.codigo = codigo;
         initComponents();
+        iniciaDetalhes(codigo);
     }
 
     /**
@@ -44,13 +50,13 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
         T_Preco_Venda = new javax.swing.JLabel();
         T_Preco_Custo = new javax.swing.JLabel();
         T_Secao2 = new javax.swing.JLabel();
-        Codigo_Produto = new javax.swing.JFormattedTextField();
-        Nome_Produto = new javax.swing.JFormattedTextField();
-        Venda_Produto = new javax.swing.JFormattedTextField();
-        Quantidade_Produto = new javax.swing.JFormattedTextField();
-        Custo_Produto = new javax.swing.JFormattedTextField();
-        Unidade_Produto = new javax.swing.JComboBox<>();
-        Secao_Produto = new javax.swing.JComboBox<>();
+        Codigo = new javax.swing.JFormattedTextField();
+        Nome = new javax.swing.JFormattedTextField();
+        Venda = new javax.swing.JFormattedTextField();
+        Quantidade = new javax.swing.JFormattedTextField();
+        Custo = new javax.swing.JFormattedTextField();
+        Unidade = new javax.swing.JComboBox<>();
+        Secao = new javax.swing.JComboBox<>();
         Salvar = new javax.swing.JButton();
         Cancelar = new javax.swing.JButton();
         Selecionar_Imagem = new javax.swing.JButton();
@@ -70,7 +76,7 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
         );
 
         setClosable(true);
-        setTitle("Cadastramento de Produto");
+        setTitle("Editar Produto");
 
         T_Codigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         T_Codigo.setText("Código:");
@@ -93,9 +99,15 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
         T_Secao2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         T_Secao2.setText("Seção:");
 
-        Unidade_Produto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ud (Unidade)", "Kg (Quilograma)", "g (Gramas)", "mg (Miligramas)", "L (Litro)", "mL (Mililitro)", "m (Metro)", "m² (Metro Quadrado)" }));
+        Nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NomeActionPerformed(evt);
+            }
+        });
 
-        Secao_Produto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bazar", "Bebida", "Biscoito", "Bomboniere", "Café & Cia", "Carnes", "Chá", "Congelado", "Diet & Light", "Feira", "Flores", "Frios e Laticínios", "Higiene e Perfumaria", "Leite & Iogurte", "Limpeza", "Massa", "Mercearia", "Mercearia Doce", "Molho & Condimento", "Orgânicos", "Padaria", "Pet Shop", "Vinho & Espumante e Cervejas Especiais" }));
+        Unidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ud (Unidade)", "Kg (Quilograma)", "g (Gramas)", "mg (Miligramas)", "L (Litro)", "mL (Mililitro)", "m (Metro)", "m² (Metro Quadrado)" }));
+
+        Secao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bazar", "Bebida", "Biscoito", "Bomboniere", "Café & Cia", "Carnes", "Chá", "Congelado", "Diet & Light", "Feira", "Flores", "Frios e Laticínios", "Higiene e Perfumaria", "Leite & Iogurte", "Limpeza", "Massa", "Mercearia", "Mercearia Doce", "Molho & Condimento", "Orgânicos", "Padaria", "Pet Shop", "Vinho & Espumante e Cervejas Especiais" }));
 
         Salvar.setText("Salvar");
         Salvar.addActionListener(new java.awt.event.ActionListener() {
@@ -131,31 +143,31 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addComponent(T_Secao2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Secao_Produto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Secao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addComponent(T_Preco_Venda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Venda_Produto))
+                        .addComponent(Venda))
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addComponent(T_Nome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Nome_Produto))
+                        .addComponent(Nome))
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addComponent(T_Codigo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Codigo_Produto))
+                        .addComponent(Codigo))
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addComponent(T_Quantidade)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Quantidade_Produto))
+                        .addComponent(Quantidade))
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addComponent(T_Unidade)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Unidade_Produto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Unidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addComponent(T_Preco_Custo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Custo_Produto)))
+                        .addComponent(Custo)))
                 .addGap(18, 18, 18)
                 .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Selecionar_Imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,7 +187,7 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(T_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Codigo_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(Selecionar_Imagem)))
@@ -184,30 +196,30 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(T_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Nome_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(T_Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Quantidade_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(T_Unidade, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Unidade_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Unidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(17, 17, 17)
                         .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(T_Secao2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Secao_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Secao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(T_Preco_Custo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Custo_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(Custo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(Painel_PrincipalLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(Imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(T_Preco_Venda, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Venda_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Venda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Cancelar)
                     .addComponent(Salvar))
                 .addGap(20, 20, 20))
@@ -227,6 +239,24 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void iniciaDetalhes(int codigo) {
+        int i;
+        DecimalFormat d = new DecimalFormat("0.00");
+        for (Produto p : estoque.getLista()) {
+            if (p.getCodigo() == codigo) {
+                System.out.println("");
+                Codigo.setText(String.valueOf(p.getCodigo()));
+                Nome.setText(p.getNome());
+                //Secao.ge(p.getSecao());
+                //Unidade.setText(p.getUnidade());
+                Custo.setText(Double.toString(p.getCusto()));
+                Venda.setText(Double.toString(p.getPreco()));
+                Quantidade.setText(String.valueOf(p.getQuantidade()));
+            }
+        }
+    }
+
+
     private void Selecionar_ImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Selecionar_ImagemActionPerformed
         JFileChooser fc = new JFileChooser();
         int res = fc.showOpenDialog(null);
@@ -243,61 +273,49 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_Selecionar_ImagemActionPerformed
 
-    private Produto retorna_Produto() {
-        try {
-            return new Produto(Integer.parseInt(Codigo_Produto.getText()), Nome_Produto.getText(),
-                    String.valueOf(Unidade_Produto.getSelectedItem()), String.valueOf(Secao_Produto.getSelectedItem()),
-                    Integer.parseInt(Quantidade_Produto.getText()), Double.parseDouble(Custo_Produto.getText()),
-                    Double.parseDouble(Venda_Produto.getText()), imagem);
-        } catch (NumberFormatException n) {
-            JOptionPane.showMessageDialog(rootPane, "Valores Ivalidos", "Aviso", JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
-    }
-
     private void fecha_Janela() {
         this.dispose();
     }
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
-        if (null != retorna_Produto()) {
-            Produto p = retorna_Produto();
-            if (!existeNaLista(p.getCodigo())) {
-                estoque.addProduto(p); // add um produto a lista
+        for (Produto p : estoque.getLista()) {
+            if (p.getCodigo() == codigo) {
+                System.out.println("");
+                p.setCodigo(Integer.parseInt(Codigo.getText()));
+                p.setNome(Nome.getText());
+                p.setCusto(Double.parseDouble(Custo.getText()));
+                p.setPreco(Double.parseDouble(Venda.getText()));
+                p.setSecao(String.valueOf(Secao.getSelectedItem()));
+                p.setUnidade(String.valueOf(Unidade.getSelectedItem()));
+                p.setImagem(imagem);
+                p.setQuantidade(Integer.parseInt(Quantidade.getText()));
                 estoque.salvarDados(); // att o arquivo txt
                 fecha_Janela();
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Código de produto ja cadastrado", "Aviso", JOptionPane.ERROR_MESSAGE);
+                break;
             }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Produto não Cadastrado!", "Aviso", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_SalvarActionPerformed
 
-    private boolean existeNaLista(int cod) {
-        for (Produto produto : estoque.getLista()) {
-            if (produto.getCodigo() == cod) {
-                return true;
-            }
-        }
-        return false;
-    }
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
         fecha_Janela();
     }//GEN-LAST:event_CancelarActionPerformed
 
+    private void NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NomeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
-    private javax.swing.JFormattedTextField Codigo_Produto;
-    private javax.swing.JFormattedTextField Custo_Produto;
+    private javax.swing.JFormattedTextField Codigo;
+    private javax.swing.JFormattedTextField Custo;
     private javax.swing.JLabel Imagem;
     private javax.swing.JInternalFrame Janela_Cadastra_Produto;
-    private javax.swing.JFormattedTextField Nome_Produto;
+    private javax.swing.JFormattedTextField Nome;
     private javax.swing.JPanel Painel_Principal;
-    private javax.swing.JFormattedTextField Quantidade_Produto;
+    private javax.swing.JFormattedTextField Quantidade;
     private javax.swing.JButton Salvar;
-    private javax.swing.JComboBox<String> Secao_Produto;
+    private javax.swing.JComboBox<String> Secao;
     private javax.swing.JButton Selecionar_Imagem;
     private javax.swing.JLabel T_Codigo;
     private javax.swing.JLabel T_Nome;
@@ -306,9 +324,10 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel T_Quantidade;
     private javax.swing.JLabel T_Secao2;
     private javax.swing.JLabel T_Unidade;
-    private javax.swing.JComboBox<String> Unidade_Produto;
-    private javax.swing.JFormattedTextField Venda_Produto;
+    private javax.swing.JComboBox<String> Unidade;
+    private javax.swing.JFormattedTextField Venda;
     // End of variables declaration//GEN-END:variables
     private BufferedImage imagem;
     private Estoque estoque = new Estoque();
+    private int codigo;
 }

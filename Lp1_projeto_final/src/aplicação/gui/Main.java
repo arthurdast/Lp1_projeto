@@ -8,20 +8,21 @@ package aplicação.gui;
 import aplicação.dados.Estoque;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Grupo
  */
 public class Main extends javax.swing.JFrame {
 
-    public Estoque estoque = new Estoque();
+    
+
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
     }
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -113,6 +114,11 @@ public class Main extends javax.swing.JFrame {
         );
 
         Menu_Produtos.setText("Produto");
+        Menu_Produtos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Menu_ProdutosActionPerformed(evt);
+            }
+        });
 
         Menu_Cadastra_Produtos.setText("Cadastrar Produto");
         Menu_Cadastra_Produtos.addActionListener(new java.awt.event.ActionListener() {
@@ -165,24 +171,24 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void  abrir_cadastraProduto() {
+    private void abrir_cadastraProduto() {
         Cadastra_Produto frame = new Cadastra_Produto();
         Tela_Principal.add(frame);
         frame.setVisible(true);
     }
-    
-    private void abrir_consultaProduto(){
+
+    private void abrir_consultaProduto() {
         Consulta_Produto frame = new Consulta_Produto();
         Tela_Principal.add(frame);
         frame.setVisible(true);
     }
-    
-    private void abrir_detalhesProduto(){
+
+    private void abrir_detalhesProduto() {
         Detalhes_Produto frame = new Detalhes_Produto(Integer.parseInt(JOptionPane.showInputDialog("Entre com o código do produto a ser editado:")));
         Tela_Principal.add(frame);
         frame.setVisible(true);
     }
-    
+
     private void Menu_Consulta_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_Consulta_ProdutoActionPerformed
         abrir_consultaProduto();
     }//GEN-LAST:event_Menu_Consulta_ProdutoActionPerformed
@@ -207,9 +213,9 @@ public class Main extends javax.swing.JFrame {
         abrir_detalhesProduto();
     }//GEN-LAST:event_Menu_Edita_ProdutoActionPerformed
 
-    public Estoque getEstoque() {
-        return estoque;
-    }
+    private void Menu_ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_ProdutosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Menu_ProdutosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -244,7 +250,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Botao_Cadastra_Produto;
     private javax.swing.JButton Botao_Consulta_Produto;

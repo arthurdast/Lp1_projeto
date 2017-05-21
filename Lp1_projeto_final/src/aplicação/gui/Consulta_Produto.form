@@ -256,6 +256,9 @@
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Tabela_DadosMouseClicked"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="Consulta_Produto_Tabela_Dados"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
