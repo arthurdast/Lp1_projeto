@@ -94,8 +94,8 @@ public class ManipularImagem {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
             ImageIO.write(image, "JPEG", baos);
-        } catch (IOException ex) {
-            //handle it here.... not implemented yet...
+        } catch (Exception ex) {
+            baos.reset();
         }
         
         InputStream is = new ByteArrayInputStream(baos.toByteArray());

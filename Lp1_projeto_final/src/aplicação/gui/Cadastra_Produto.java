@@ -248,7 +248,7 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
             return new Produto(Integer.parseInt(Codigo_Produto.getText()), Nome_Produto.getText(),
                     String.valueOf(Unidade_Produto.getSelectedItem()), String.valueOf(Secao_Produto.getSelectedItem()),
                     Integer.parseInt(Quantidade_Produto.getText()), Double.parseDouble(Custo_Produto.getText()),
-                    Double.parseDouble(Venda_Produto.getText()), imagem);
+                    Double.parseDouble(Venda_Produto.getText()), ManipularImagem.getImgBytes(imagem));
         } catch (NumberFormatException n) {
             JOptionPane.showMessageDialog(rootPane, "Valores Ivalidos", "Aviso", JOptionPane.ERROR_MESSAGE);
             return null;

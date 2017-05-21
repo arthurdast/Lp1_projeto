@@ -12,9 +12,9 @@ public class Produto implements Serializable {
     private double preco;
     private String secao;
     private String unidade;
-    private transient BufferedImage imagem; //transient para ser possível serializar
+    private byte[] imagem; //transient para ser possível serializar
 
-    public Produto(int codigo, String nome, String unidade, String secao, int quantidade, double custo, double preco, BufferedImage imagem) {
+    public Produto(int codigo, String nome, String unidade, String secao, int quantidade, double custo, double preco, byte[] imagem) {
         this.codigo = codigo;
         this.nome = nome;
         this.quantidade = quantidade;
@@ -81,11 +81,11 @@ public class Produto implements Serializable {
         this.unidade = unidade;
     }
 
-    public BufferedImage getImagem() {
+    public byte[] getImagem() {
         return imagem;
     }
 
-    public void setImagem(BufferedImage imagem) {
+    public void setImagem(byte[] imagem) {
         this.imagem = imagem;
     }
     

@@ -287,7 +287,7 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
                 p.setPreco(Double.parseDouble(Venda.getText()));
                 p.setSecao(String.valueOf(Secao.getSelectedItem()));
                 p.setUnidade(String.valueOf(Unidade.getSelectedItem()));
-                p.setImagem(imagem);
+                p.setImagem(ManipularImagem.getImgBytes(imagem));
                 p.setQuantidade(Integer.parseInt(Quantidade.getText()));
                 estoque.salvarDados(); // att o arquivo txt
                 fecha_Janela();
