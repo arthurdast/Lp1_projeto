@@ -30,23 +30,29 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
     }
 
     public void iniciaDetalhes(int codigo) {
-        DecimalFormat d = new DecimalFormat("0.00");        
-        for (Produto p : estoque.getLista()) {
-            if (p.getCodigo() == codigo) {
-                LabelCodigo.setText(String.valueOf(p.getCodigo()));
-                LabelNome.setText(p.getNome());
-                LabelSecao.setText(p.getSecao());
-                LabelUnidade.setText(p.getUnidade());
-                LabelCusto.setText(Double.toString(p.getCusto()));
-                LabelVenda.setText(Double.toString(p.getPreco()));
-                LabelQuantidade.setText(String.valueOf(p.getQuantidade()));
-                try {
-                    ManipularImagem.exibiImagemLabel(p.getImagem(), LabelImagem);
-                } catch (Exception e) {
-                    System.out.println("erro reden image");
+        DecimalFormat d = new DecimalFormat("0.00");
+        if (estoque.exiteNaLista(codigo)) {
+            for (Produto p : estoque.getLista()) {
+                if (p.getCodigo() == codigo) {
+                    LabelCodigo.setText(String.valueOf(p.getCodigo()));
+                    LabelNome.setText(p.getNome());
+                    LabelSecao.setText(p.getSecao());
+                    LabelUnidade.setText(p.getUnidade());
+                    LabelCusto.setText(Double.toString(p.getCusto()));
+                    LabelVenda.setText(Double.toString(p.getPreco()));
+                    LabelQuantidade.setText(String.valueOf(p.getQuantidade()));
+                    try {
+                        ManipularImagem.exibiImagemLabel(p.getImagem(), LabelImagem);
+                    } catch (Exception e) {
+                        System.out.println("erro reden image");
+                    }
+
                 }
-                
             }
+        } else {
+            Salvar.setVisible(false);
+            Excluir.setVisible(false);
+            JOptionPane.showMessageDialog(rootPane, "Codigo não encontrado", "Aviso", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -288,17 +294,18 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
-
-        for (Produto p : estoque.getLista()) {
-            if (p.getCodigo() == codigo) {
-                this.dispose();
-                estoque.getLista().remove(p);
-                estoque.salvarDados();
-                return;
-
+        int confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir ?", "Aviso", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            for (Produto p : estoque.getLista()) {
+                if (p.getCodigo() == codigo) {
+                    this.dispose();
+                    estoque.getLista().remove(p);
+                    estoque.salvarDados();
+                    return;
+                }
             }
+            JOptionPane.showMessageDialog(null, "Codigo não encontrado");
         }
-        JOptionPane.showMessageDialog(null, "Codigo não encontrado");
 
     }//GEN-LAST:event_ExcluirActionPerformed
 

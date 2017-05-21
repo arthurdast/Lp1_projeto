@@ -184,9 +184,12 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void abrir_detalhesProduto() {
+        try {
         Detalhes_Produto frame = new Detalhes_Produto(Integer.parseInt(JOptionPane.showInputDialog("Entre com o código do produto a ser editado:")));
         Tela_Principal.add(frame);
         frame.setVisible(true);
+        } catch (Exception e) {            
+        }
     }
 
     private void Menu_Consulta_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_Consulta_ProdutoActionPerformed

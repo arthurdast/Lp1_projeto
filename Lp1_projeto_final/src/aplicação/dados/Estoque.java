@@ -39,7 +39,7 @@ public class Estoque implements Serializable {
             objOut.close();
             System.out.println("aplicação.dados.Estoque.salvarDados()");
             for (Produto produto : lista) {
-                System.out.println("CODIGO="+produto.getCodigo());
+                System.out.println("CODIGO=" + produto.getCodigo());
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Estoque.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,7 +54,7 @@ public class Estoque implements Serializable {
             this.lista = (ArrayList<Produto>) in.readObject();
             System.out.println("aplicação.dados.Estoque.carregarDados()");
             for (Produto produto : lista) {
-                System.out.println("CODIGO="+produto.getCodigo());
+                System.out.println("CODIGO=" + produto.getCodigo());
             }
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Arquivo de dados não encontrado, arquivo limpo foi criado ", "Erro 1 ", JOptionPane.ERROR_MESSAGE);
@@ -86,6 +86,16 @@ public class Estoque implements Serializable {
 
     public void setLista(ArrayList<Produto> lista) {
         this.lista = lista;
+    }
+
+    public boolean exiteNaLista(int cod) {
+
+        for (Produto produto : lista) {
+            if (produto.getCodigo() == cod) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
