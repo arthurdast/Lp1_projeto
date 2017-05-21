@@ -94,8 +94,10 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
         T_Secao2.setText("Seção:");
 
         Unidade_Produto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ud (Unidade)", "Kg (Quilograma)", "g (Gramas)", "mg (Miligramas)", "L (Litro)", "mL (Mililitro)", "m (Metro)", "m² (Metro Quadrado)" }));
+        Unidade_Produto.setSelectedItem(null);
 
         Secao_Produto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bazar", "Bebida", "Biscoito", "Bomboniere", "Café & Cia", "Carnes", "Chá", "Congelado", "Diet & Light", "Feira", "Flores", "Frios e Laticínios", "Higiene e Perfumaria", "Leite & Iogurte", "Limpeza", "Massa", "Mercearia", "Mercearia Doce", "Molho & Condimento", "Orgânicos", "Padaria", "Pet Shop", "Vinho & Espumante e Cervejas Especiais" }));
+        Secao_Produto.setSelectedItem(null);
 
         Salvar.setText("Salvar");
         Salvar.addActionListener(new java.awt.event.ActionListener() {

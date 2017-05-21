@@ -12,7 +12,7 @@ public class Produto implements Serializable {
     private double preco;
     private String secao;
     private String unidade;
-    private byte[] imagem; //transient para ser possível serializar
+    private byte[] imagem;
 
     public Produto(int codigo, String nome, String unidade, String secao, int quantidade, double custo, double preco, byte[] imagem) {
         this.codigo = codigo;

@@ -62,6 +62,7 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
         T_Nome.setText("Nome:");
 
         Secao_Produto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bazar", "Bebida", "Biscoito", "Bomboniere", "Café & Cia", "Carnes", "Chá", "Congelado", "Diet & Light", "Feira", "Flores", "Frios e Laticínios", "Higiene e Perfumaria", "Leite & Iogurte", "Limpeza", "Massa", "Mercearia", "Mercearia Doce", "Molho & Condimento", "Orgânicos", "Padaria", "Pet Shop", "Vinho & Espumante e Cervejas Especiais" }));
+        Secao_Produto.setSelectedItem(null);
 
         T_Secao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         T_Secao.setText("Seção:");

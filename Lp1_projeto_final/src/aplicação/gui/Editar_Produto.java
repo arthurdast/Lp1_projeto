@@ -247,8 +247,6 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
                 System.out.println("");
                 Codigo.setText(String.valueOf(p.getCodigo()));
                 Nome.setText(p.getNome());
-                //Secao.ge(p.getSecao());
-                //Unidade.setText(p.getUnidade());
                 Custo.setText(Double.toString(p.getCusto()));
                 Venda.setText(Double.toString(p.getPreco()));
                 Quantidade.setText(String.valueOf(p.getQuantidade()));

@@ -85,7 +85,6 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
         Secao = new javax.swing.JLabel();
         P_Venda = new javax.swing.JLabel();
         P_Custo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         LabelCodigo = new javax.swing.JLabel();
         LabelNome = new javax.swing.JLabel();
         LabelQuantidade = new javax.swing.JLabel();
@@ -146,22 +145,6 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
         });
 
         LabelImagem.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jButton1.setText("jButton1");
-
-        LabelCodigo.setText("jLabel1");
-
-        LabelNome.setText("jLabel2");
-
-        LabelQuantidade.setText("jLabel3");
-
-        LabelUnidade.setText("jLabel4");
-
-        LabelSecao.setText("jLabel5");
-
-        LabelCusto.setText("jLabel6");
-
-        LabelVenda.setText("jLabel7");
 
         javax.swing.GroupLayout Painel_PrincipalLayout = new javax.swing.GroupLayout(Painel_Principal);
         Painel_Principal.setLayout(Painel_PrincipalLayout);
@@ -235,12 +218,8 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(LabelImagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Excluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_PrincipalLayout.createSequentialGroup()
-                            .addComponent(Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton1))))
+                    .addComponent(Excluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Salvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         Painel_PrincipalLayout.setVerticalGroup(
@@ -278,7 +257,6 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
                 .addGroup(Painel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(T_Preco_Custo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(P_Custo)
-                    .addComponent(jButton1)
                     .addComponent(Salvar)
                     .addComponent(LabelCusto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -288,7 +266,7 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
                         .addComponent(P_Venda)
                         .addComponent(LabelVenda))
                     .addComponent(Excluir))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -314,7 +292,7 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
         for (Produto p : estoque.getLista()) {
             if (p.getCodigo() == codigo) {
                 this.dispose();
-                estoque.getLista().remove(codigo);
+                estoque.getLista().remove(p);
                 estoque.salvarDados();
                 return;
 
@@ -352,7 +330,6 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel T_Secao2;
     private javax.swing.JLabel T_Unidade;
     private javax.swing.JLabel Unidade;
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
     private Estoque estoque = new Estoque();
     private int codigo;
