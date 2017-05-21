@@ -195,6 +195,9 @@
               <Image iconType="3" name="/aplica&#xe7;&#xe3;o/gui/icones/ico_search_tiny.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Botao_PesquisarActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="Painel_Info">
 

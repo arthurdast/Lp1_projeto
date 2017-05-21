@@ -21,7 +21,7 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
      */
     public Consulta_Produto() {
         initComponents();
-       
+
     }
 
     /**
@@ -68,6 +68,11 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
         T_Secao.setText("Seção:");
 
         Botao_Pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aplicação/gui/icones/ico_search_tiny.png"))); // NOI18N
+        Botao_Pesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Botao_PesquisarActionPerformed(evt);
+            }
+        });
 
         Tabela_Dados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -205,9 +210,13 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_Tabela_DadosMouseClicked
 
+    private void Botao_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Botao_PesquisarActionPerformed
+        atualizaTabelaPesquisa();
+    }//GEN-LAST:event_Botao_PesquisarActionPerformed
+
     public Object[] preencheTabela(Produto p) {
         try {
-            Object[] dados = {p.getCodigo(),p.getNome(), p.getUnidade(),
+            Object[] dados = {p.getCodigo(), p.getNome(), p.getUnidade(),
                 p.getSecao(), p.getQuantidade(), p.getCusto(), p.getPreco()};
             return dados;
         } catch (ArrayIndexOutOfBoundsException n) {
@@ -224,6 +233,21 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
 
     }
 
+    public void atualizaTabelaPesquisa() {
+            int  cod_produto = -1;
+        try {
+            cod_produto = Integer.parseInt(Codigo_Produto.getText());
+        } catch (Exception e) {
+        }
+        DefaultTableModel modelo = (DefaultTableModel) Tabela_Dados.getModel();
+        modelo.setNumRows(0);
+        for (Produto p : estoque.getLista()) {
+            if (p.getCodigo() == cod_produto || p.getNome().equals(Nome_Produto.getText()) || p.getSecao().equals(String.valueOf(Secao_Produto.getSelectedItem()))) {
+                System.out.println(p.getCodigo());
+                modelo.addRow(preencheTabela(p));
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Adicionar_Botao;
     private javax.swing.JButton Botao_Pesquisar;
