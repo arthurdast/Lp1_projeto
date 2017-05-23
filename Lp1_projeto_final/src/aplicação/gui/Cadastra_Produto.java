@@ -266,7 +266,7 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
                 estoque.addProduto(p); // add um produto a lista
                 estoque.salvarDados(); // att o arquivo txt
                 fecha_Janela();
-                JOptionPane.showMessageDialog(rootPane, "Produto cadastrado", "Aviso", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Produto cadastrado");
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Código de produto ja cadastrado", "Aviso", JOptionPane.ERROR_MESSAGE);
             }
