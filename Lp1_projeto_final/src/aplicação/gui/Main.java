@@ -7,6 +7,8 @@ package aplicação.gui;
 
 import aplicação.dados.Estoque;
 import aplicação.dados.Produto;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +22,7 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        this.setIconImage(new ImageIcon("src/aplicação/gui/icones/ico_application.png").getImage());
     }
 
     /**
