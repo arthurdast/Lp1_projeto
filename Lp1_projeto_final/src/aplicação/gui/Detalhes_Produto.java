@@ -12,7 +12,9 @@ import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import static aplicação.gui.Main.Tela_Principal;
 import aplicação.gui.Main;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import aplicação.ferramentas.exceções.IDNotFoundException;
 
 /**
  *
@@ -30,9 +32,11 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
     }
 
     public void iniciaDetalhes(int codigo) {
+        int i = 0;
         DecimalFormat d = new DecimalFormat("0.00");
-        if (estoque.exiteNaLista(codigo)) {
-            for (Produto p : estoque.getLista()) {
+
+        for (Produto p : estoque.getLista()) {
+            try {
                 if (p.getCodigo() == codigo) {
                     LabelCodigo.setText(String.valueOf(p.getCodigo()));
                     LabelNome.setText(p.getNome());
@@ -41,18 +45,11 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
                     LabelCusto.setText(Double.toString(p.getCusto()));
                     LabelVenda.setText(Double.toString(p.getPreco()));
                     LabelQuantidade.setText(String.valueOf(p.getQuantidade()));
-                    try {
-                        ManipularImagem.exibiImagemLabel(p.getImagem(), LabelImagem);
-                    } catch (Exception e) {
-                        System.out.println("erro reden image");
-                    }
-
+                    ManipularImagem.exibiImagemLabel(p.getImagem(), LabelImagem);
                 }
+            } catch (Exception e) {
+                System.out.println("erro reden image");
             }
-        } else {
-            Salvar.setVisible(false);
-            Excluir.setVisible(false);
-            JOptionPane.showMessageDialog(rootPane, "Codigo não encontrado", "Aviso", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -301,6 +298,7 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
                     this.dispose();
                     estoque.getLista().remove(p);
                     estoque.salvarDados();
+                    JOptionPane.showMessageDialog(rootPane, "Produto Excluido", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
             }

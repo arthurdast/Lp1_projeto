@@ -6,6 +6,7 @@
 package aplicação.gui;
 
 import aplicação.dados.Estoque;
+import aplicação.dados.Produto;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,8 +15,6 @@ import javax.swing.JOptionPane;
  */
 public class Main extends javax.swing.JFrame {
 
-    
-
     /**
      * Creates new form Main
      */
@@ -23,7 +22,6 @@ public class Main extends javax.swing.JFrame {
         initComponents();
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,6 +49,7 @@ public class Main extends javax.swing.JFrame {
         Tela_Principal.setBackground(new java.awt.Color(204, 204, 204));
 
         Botao_Consulta_Produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aplicação/gui/icones/ico_search.png"))); // NOI18N
+        Botao_Consulta_Produto.setToolTipText("Exibir Lista de Produtos");
         Botao_Consulta_Produto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Botao_Consulta_ProdutoActionPerformed(evt);
@@ -58,6 +57,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         Botao_Edita_Produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aplicação/gui/icones/ico_edit.png"))); // NOI18N
+        Botao_Edita_Produto.setToolTipText("Editar Um Produto");
         Botao_Edita_Produto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Botao_Edita_ProdutoActionPerformed(evt);
@@ -65,6 +65,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         Botao_Cadastra_Produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aplicação/gui/icones/ico_add.png"))); // NOI18N
+        Botao_Cadastra_Produto.setToolTipText("Adicionar Novo Produto");
         Botao_Cadastra_Produto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Botao_Cadastra_ProdutoActionPerformed(evt);
@@ -145,6 +146,11 @@ public class Main extends javax.swing.JFrame {
         Menu_Produtos.add(Menu_Edita_Produto);
 
         Menu_Sair.setText("Sair");
+        Menu_Sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Menu_SairActionPerformed(evt);
+            }
+        });
         Menu_Produtos.add(Menu_Sair);
 
         Menu_Principal.add(Menu_Produtos);
@@ -184,12 +190,36 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void abrir_detalhesProduto() {
+        estoque = new Estoque();
+        int cod = -165989;
+        String input;
         try {
-        Detalhes_Produto frame = new Detalhes_Produto(Integer.parseInt(JOptionPane.showInputDialog("Entre com o código do produto a ser editado:")));
-        Tela_Principal.add(frame);
-        frame.setVisible(true);
-        } catch (Exception e) {            
+            input = JOptionPane.showInputDialog("Entre com o código do produto a ser editado:");
+            if (input != null) {
+                cod = Integer.parseInt(input);
+            } else {
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Valor Inválido", "Aviso", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        if (estoque.exiteNaLista(cod)) {
+            Detalhes_Produto frame = new Detalhes_Produto(cod);
+            Tela_Principal.add(frame);
+            frame.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Codigo não encontrado", "Aviso", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private boolean existeNaLista(int cod) {
+        for (Produto produto : estoque.getLista()) {
+            if (produto.getCodigo() == cod) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void Menu_Consulta_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_Consulta_ProdutoActionPerformed
@@ -219,6 +249,10 @@ public class Main extends javax.swing.JFrame {
     private void Menu_ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_ProdutosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Menu_ProdutosActionPerformed
+
+    private void Menu_SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_SairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_Menu_SairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -267,4 +301,5 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel Menu_Titulo;
     protected static javax.swing.JDesktopPane Tela_Principal;
     // End of variables declaration//GEN-END:variables
+    Estoque estoque;
 }

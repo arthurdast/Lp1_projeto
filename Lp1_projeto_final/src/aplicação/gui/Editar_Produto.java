@@ -252,6 +252,10 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
                 Custo.setText(Double.toString(p.getCusto()));
                 Venda.setText(Double.toString(p.getPreco()));
                 Quantidade.setText(String.valueOf(p.getQuantidade()));
+                try{
+                    ManipularImagem.exibiImagemLabel(p.getImagem(), Imagem);
+                }catch(Exception e){}
+               
             }
         }
     }
@@ -266,7 +270,7 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
                 imagem = ManipularImagem.setImagemDimensao(arquivo.getAbsolutePath(), 160, 160);
                 Imagem.setIcon(new ImageIcon(imagem));
             } catch (Exception ex) {
-                // System.out.println(ex.printStackTrace().toString());
+                JOptionPane.showMessageDialog(rootPane, "Arquivo Inválido");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Voce nao selecionou nenhum arquivo.");
@@ -291,6 +295,7 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
                 p.setQuantidade(Integer.parseInt(Quantidade.getText()));
                 estoque.salvarDados(); // att o arquivo txt
                 fecha_Janela();
+                JOptionPane.showMessageDialog(rootPane, "Produto editado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 break;
             }
         }

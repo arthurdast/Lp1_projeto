@@ -93,11 +93,9 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
         T_Secao2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         T_Secao2.setText("Seção:");
 
-        Unidade_Produto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ud (Unidade)", "Kg (Quilograma)", "g (Gramas)", "mg (Miligramas)", "L (Litro)", "mL (Mililitro)", "m (Metro)", "m² (Metro Quadrado)" }));
-        Unidade_Produto.setSelectedItem(null);
+        Unidade_Produto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum", "Ud (Unidade)", "Kg (Quilograma)", "g (Gramas)", "mg (Miligramas)", "L (Litro)", "mL (Mililitro)", "m (Metro)", "m² (Metro Quadrado)" }));
 
-        Secao_Produto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bazar", "Bebida", "Biscoito", "Bomboniere", "Café & Cia", "Carnes", "Chá", "Congelado", "Diet & Light", "Feira", "Flores", "Frios e Laticínios", "Higiene e Perfumaria", "Leite & Iogurte", "Limpeza", "Massa", "Mercearia", "Mercearia Doce", "Molho & Condimento", "Orgânicos", "Padaria", "Pet Shop", "Vinho & Espumante e Cervejas Especiais" }));
-        Secao_Produto.setSelectedItem(null);
+        Secao_Produto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum", "Bazar", "Bebida", "Biscoito", "Bomboniere", "Café & Cia", "Carnes", "Chá", "Congelado", "Diet & Light", "Feira", "Flores", "Frios e Laticínios", "Higiene e Perfumaria", "Leite & Iogurte", "Limpeza", "Massa", "Mercearia", "Mercearia Doce", "Molho & Condimento", "Orgânicos", "Padaria", "Pet Shop", "Vinho & Espumante e Cervejas Especiais" }));
 
         Salvar.setText("Salvar");
         Salvar.addActionListener(new java.awt.event.ActionListener() {
@@ -238,7 +236,7 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
                 imagem = ManipularImagem.setImagemDimensao(arquivo.getAbsolutePath(), 160, 160);
                 Imagem.setIcon(new ImageIcon(imagem));
             } catch (Exception ex) {
-                // System.out.println(ex.printStackTrace().toString());
+                JOptionPane.showMessageDialog(rootPane, "Arquivo Inválido", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Voce nao selecionou nenhum arquivo.");
@@ -268,6 +266,7 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
                 estoque.addProduto(p); // add um produto a lista
                 estoque.salvarDados(); // att o arquivo txt
                 fecha_Janela();
+                JOptionPane.showMessageDialog(rootPane, "Produto cadastrado", "Aviso", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Código de produto ja cadastrado", "Aviso", JOptionPane.ERROR_MESSAGE);
             }

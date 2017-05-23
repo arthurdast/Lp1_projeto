@@ -40,6 +40,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sair"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Menu_SairActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -139,6 +142,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/aplica&#xe7;&#xe3;o/gui/icones/ico_search.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Exibir Lista de Produtos"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Botao_Consulta_ProdutoActionPerformed"/>
@@ -149,6 +153,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/aplica&#xe7;&#xe3;o/gui/icones/ico_edit.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Editar Um Produto"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Botao_Edita_ProdutoActionPerformed"/>
@@ -159,6 +164,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/aplica&#xe7;&#xe3;o/gui/icones/ico_add.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Adicionar Novo Produto"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Botao_Cadastra_ProdutoActionPerformed"/>
