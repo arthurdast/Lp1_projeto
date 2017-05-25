@@ -1,9 +1,8 @@
 package aplicação.dados;
 
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
-public class Produto implements Serializable {
+public class Produto implements Serializable  {
 
     private int codigo;
     private String nome;
@@ -93,5 +92,7 @@ public class Produto implements Serializable {
     public String toString() {
         return "Produto{" + "codigo=" + codigo + ", nome=" + nome + ", quantidade=" + quantidade + ", custo=" + custo + ", preco=" + preco + ", secao=" + secao + ", unidade=" + unidade + ", imagem=" + imagem + '}';
     }
+
+   
 
 }
