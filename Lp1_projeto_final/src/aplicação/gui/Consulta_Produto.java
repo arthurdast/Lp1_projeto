@@ -8,6 +8,7 @@ package aplicação.gui;
 import aplicação.dados.Estoque;
 import aplicação.dados.Produto;
 import static aplicação.gui.Main.Tela_Principal;
+import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -265,9 +266,10 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TudoActionPerformed
 
     public Object[] preencheTabela(Produto p) {
+        DecimalFormat d = new DecimalFormat("0.00");
         try {
             Object[] dados = {p.getCodigo(), p.getNome(), p.getUnidade(),
-                p.getSecao(), p.getQuantidade(), p.getCusto(), p.getPreco()};
+                p.getSecao(), p.getQuantidade(), d.format(p.getCusto()), d.format(p.getPreco())};
             return dados;
         } catch (ArrayIndexOutOfBoundsException n) {
             return null;

@@ -9,7 +9,6 @@ import aplicação.ferramentas.ManipularImagem;
 import aplicação.dados.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Collections;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -229,18 +228,19 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Selecionar_ImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Selecionar_ImagemActionPerformed
-        JFileChooser fc = new JFileChooser();
+        //Seleciona a imagem na pasta
+        JFileChooser fc = new JFileChooser();//Abre o explorador de arquivos
         int res = fc.showOpenDialog(null);
         if (res == JFileChooser.APPROVE_OPTION) {
             File arquivo = fc.getSelectedFile();
             try {
                 imagem = ManipularImagem.setImagemDimensao(arquivo.getAbsolutePath(), 160, 160);
-                Imagem.setIcon(new ImageIcon(imagem));
-            } catch (Exception ex) {
+                Imagem.setIcon(new ImageIcon(imagem));//Aplica a imagem selecionada como icone no painel
+            } catch (Exception ex) {//Exceção gerada caso o arquvo selecionado seja inválido
                 JOptionPane.showMessageDialog(rootPane, "Arquivo Inválido", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Voce nao selecionou nenhum arquivo.");
+        } else {//Caso não selecione nenhum arquivo
+            JOptionPane.showMessageDialog(null, "Voce não selecionou nenhum arquivo.");
         }
     }//GEN-LAST:event_Selecionar_ImagemActionPerformed
 
@@ -256,7 +256,7 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
         }
     }
 
-    private void fecha_Janela() {
+    private void fecha_Janela() {//Fecha a janela de cadastro de produtos
         this.dispose();
     }
 

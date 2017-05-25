@@ -8,9 +8,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Produto"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Menu_ProdutosActionPerformed"/>
-          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="Menu_Cadastra_Produtos">
               <Properties>
@@ -52,6 +49,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Cadastro de Produtos"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="Menu_Principal"/>
@@ -94,7 +92,7 @@
     <Container class="javax.swing.JDesktopPane" name="Tela_Principal">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+          <Color blue="ff" green="66" red="99" type="rgb"/>
         </Property>
       </Properties>
       <AuxValues>

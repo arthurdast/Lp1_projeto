@@ -9,7 +9,6 @@ import aplicação.ferramentas.ManipularImagem;
 import aplicação.dados.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Collections;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -243,18 +242,19 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
     public void iniciaDetalhes(int codigo) {
 
         for (Produto p : estoque.getLista()) {
-            if (p.getCodigo() == codigo) {
-                System.out.println("");
-                Codigo.setText(String.valueOf(p.getCodigo()));
-                Nome.setText(p.getNome());
-                Custo.setText(Double.toString(p.getCusto()));
-                Venda.setText(Double.toString(p.getPreco()));
-                Quantidade.setText(String.valueOf(p.getQuantidade()));
-                try {
+            try {
+                if (p.getCodigo() == codigo) {
+                    System.out.println("");
+                    Codigo.setText(String.valueOf(p.getCodigo()));
+                    Nome.setText(p.getNome());
+                    Custo.setText(Double.toString(p.getCusto()));
+                    Venda.setText(Double.toString(p.getPreco()));
+                    Quantidade.setText(String.valueOf(p.getQuantidade()));
                     ManipularImagem.exibiImagemLabel(p.getImagem(), Imagem);
-                } catch (Exception e) {
+                    imagem = p.getImagem();
                 }
-
+            } catch (Exception e) {
+                Imagem.setIcon(new ImageIcon("src/aplicação/gui/icones/Sem Imagem.png"));
             }
         }
     }
@@ -270,12 +270,14 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
 
     private void Selecionar_ImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Selecionar_ImagemActionPerformed
         JFileChooser fc = new JFileChooser();
+        BufferedImage imagem2;
         int res = fc.showOpenDialog(null);
         if (res == JFileChooser.APPROVE_OPTION) {
             File arquivo = fc.getSelectedFile();
             try {
-                imagem = ManipularImagem.setImagemDimensao(arquivo.getAbsolutePath(), 160, 160);
-                Imagem.setIcon(new ImageIcon(imagem));
+                imagem2 = ManipularImagem.setImagemDimensao(arquivo.getAbsolutePath(), 160, 160);
+                imagem = ManipularImagem.getImgBytes(imagem2);
+                Imagem.setIcon(new ImageIcon(imagem2));
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, "Arquivo Inválido");
             }
@@ -301,7 +303,7 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
                             p.setPreco(Double.parseDouble(Venda.getText()));
                             p.setSecao(String.valueOf(Secao.getSelectedItem()));
                             p.setUnidade(String.valueOf(Unidade.getSelectedItem()));
-                            p.setImagem(ManipularImagem.getImgBytes(imagem));
+                            p.setImagem(imagem);
                             p.setQuantidade(Integer.parseInt(Quantidade.getText()));
                             //Collections.sort(estoque.getLista());
                             estoque.salvarDados(); // att o arquivo txt
@@ -352,7 +354,7 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> Unidade;
     private javax.swing.JFormattedTextField Venda;
     // End of variables declaration//GEN-END:variables
-    private BufferedImage imagem;
+    private byte[] imagem;
     private Estoque estoque = new Estoque();
     private int codigo;
 }

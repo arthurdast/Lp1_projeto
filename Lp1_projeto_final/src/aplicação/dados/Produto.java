@@ -2,7 +2,7 @@ package aplicação.dados;
 
 import java.io.Serializable;
 
-public class Produto implements Serializable  {
+public class Produto implements Serializable { //Classe com os atributos das especificações com metodos get/set e construtor padrões
 
     private int codigo;
     private String nome;
@@ -87,12 +87,10 @@ public class Produto implements Serializable  {
     public void setImagem(byte[] imagem) {
         this.imagem = imagem;
     }
-    
+
     @Override
     public String toString() {
         return "Produto{" + "codigo=" + codigo + ", nome=" + nome + ", quantidade=" + quantidade + ", custo=" + custo + ", preco=" + preco + ", secao=" + secao + ", unidade=" + unidade + ", imagem=" + imagem + '}';
     }
-
-   
 
 }

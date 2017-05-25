@@ -13,15 +13,13 @@ import java.io.Serializable;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Grupo
  */
-public class Estoque implements Serializable {
+public class Estoque implements Serializable { //Classe com ArrayList de produtos
 
     private ArrayList<Produto> lista;
 
@@ -30,7 +28,7 @@ public class Estoque implements Serializable {
         carregarDados();
     }
 
-    public void salvarDados() {
+    public void salvarDados() { //Salva os dados do ArrayList no arquivo Dados.ser
         
         try {
             FileOutputStream out = new FileOutputStream("Dados.ser");
@@ -38,21 +36,21 @@ public class Estoque implements Serializable {
             objOut.writeObject(lista);
             objOut.flush();
             objOut.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Estoque.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Estoque.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {//Exceção gerada quando o arquivo não é encontrado
+            JOptionPane.showMessageDialog(null, "Arquivo não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {//Exceção gerada quando o arquivo não é lido corretamente
+            JOptionPane.showMessageDialog(null, "Erro ao ler arquivo", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void carregarDados() {
+    private void carregarDados() {//Lê os dados do arquivo Dados.ser e armazena no ArrayList
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream("Dados.ser"));
             this.lista = (ArrayList<Produto>) in.readObject();
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Arquivo de dados não encontrado, arquivo limpo foi criado ", "Erro 1 ", JOptionPane.ERROR_MESSAGE);
+        } catch (FileNotFoundException ex) {//Exceção gerada quando o arquivo não é encontrado
+            JOptionPane.showMessageDialog(null, "Arquivo de dados não encontrado, arquivo limpo foi criado ", "Erro", JOptionPane.ERROR_MESSAGE);
             salvarDados();
-        } catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {//Exceção gerada quando o arquivo não é lido corretamente
             JOptionPane.showMessageDialog(null, ex, "Erro 1 ", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -81,7 +79,7 @@ public class Estoque implements Serializable {
         this.lista = lista;
     }
 
-    public boolean exiteNaLista(int cod) {
+    public boolean exiteNaLista(int cod) {//Metodo que verifica se determinado produto já existe na lista
 
         for (Produto produto : lista) {
             if (produto.getCodigo() == cod) {

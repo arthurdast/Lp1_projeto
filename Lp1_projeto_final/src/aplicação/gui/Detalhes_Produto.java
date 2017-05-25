@@ -10,6 +10,7 @@ import aplicação.dados.Produto;
 import aplicação.ferramentas.ManipularImagem;
 import java.text.DecimalFormat;
 import static aplicação.gui.Main.Tela_Principal;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +30,7 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
     }
 
     public void iniciaDetalhes(int codigo) {
+        DecimalFormat d = new DecimalFormat("0.00");
         for (Produto p : estoque.getLista()) {
             try {
                 if (p.getCodigo() == codigo) {
@@ -36,13 +38,13 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
                     LabelNome.setText(p.getNome());
                     LabelSecao.setText(p.getSecao());
                     LabelUnidade.setText(p.getUnidade());
-                    LabelCusto.setText(Double.toString(p.getCusto()));
-                    LabelVenda.setText(Double.toString(p.getPreco()));
+                    LabelCusto.setText(d.format((p.getCusto())));
+                    LabelVenda.setText(d.format((p.getPreco())));
                     LabelQuantidade.setText(String.valueOf(p.getQuantidade()));
                     ManipularImagem.exibiImagemLabel(p.getImagem(), LabelImagem);
                 }
             } catch (Exception e) {
-                System.out.println("erro reden image");
+                LabelImagem.setIcon(new ImageIcon("src/aplicação/gui/icones/Sem Imagem.png"));
             }
         }
     }

@@ -7,7 +7,6 @@ package aplicação.gui;
 
 import aplicação.dados.Estoque;
 import aplicação.dados.Produto;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -22,7 +21,7 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
-        this.setIconImage(new ImageIcon("src/aplicação/gui/icones/ico_application.png").getImage());
+        this.setIconImage(new ImageIcon("src/aplicação/gui/icones/ico_application.png").getImage());//Muda o icone da aplicação
     }
 
     /**
@@ -48,8 +47,9 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Produtos");
+        setResizable(false);
 
-        Tela_Principal.setBackground(new java.awt.Color(204, 204, 204));
+        Tela_Principal.setBackground(new java.awt.Color(153, 102, 255));
 
         Botao_Consulta_Produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aplicação/gui/icones/ico_search.png"))); // NOI18N
         Botao_Consulta_Produto.setToolTipText("Exibir Lista de Produtos");
@@ -118,11 +118,6 @@ public class Main extends javax.swing.JFrame {
         );
 
         Menu_Produtos.setText("Produto");
-        Menu_Produtos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Menu_ProdutosActionPerformed(evt);
-            }
-        });
 
         Menu_Cadastra_Produtos.setText("Cadastrar Produto");
         Menu_Cadastra_Produtos.addActionListener(new java.awt.event.ActionListener() {
@@ -180,49 +175,40 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void abrir_cadastraProduto() {
+    private void abrir_cadastraProduto() {//Abre a janela de cadastro de produtos
         Cadastra_Produto frame = new Cadastra_Produto();
         Tela_Principal.add(frame);
         frame.setVisible(true);
     }
 
-    private void abrir_consultaProduto() {
+    private void abrir_consultaProduto() {//Abre a tabela de consulta dos produtos
         Consulta_Produto frame = new Consulta_Produto();
         Tela_Principal.add(frame);
         frame.setVisible(true);
     }
 
-    private void abrir_detalhesProduto() {
+    private void abrir_detalhesProduto() {//Abre a janela dos detalhes de um produto
         estoque = new Estoque();
-        int cod = -165989;
+        int cod = -165989;//Valor arbitrário que o usuário, supostamente, não deve buscar
         String input;
         try {
             input = JOptionPane.showInputDialog("Entre com o código do produto a ser editado:");
-            if (input != null) {
+            if (input != null) {//Verifica se o usuário deixou o espaço de entrada em branco
                 cod = Integer.parseInt(input);
             } else {
                 return;
             }
-        } catch (Exception e) {
+        } catch (Exception e) {//Exceção gerada se o usuário digitou um valor não-numérico
             JOptionPane.showMessageDialog(rootPane, "Valor Inválido", "Aviso", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (estoque.exiteNaLista(cod)) {
+        if (estoque.exiteNaLista(cod)) {//Se o código buscado existe na lista de produtos, exibe seus detalhes
             Detalhes_Produto frame = new Detalhes_Produto(cod);
             Tela_Principal.add(frame);
             frame.setVisible(true);
-        } else {
+        } else {//Se não, exibe mensagem de erro
             JOptionPane.showMessageDialog(rootPane, "Codigo não encontrado", "Aviso", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    private boolean existeNaLista(int cod) {
-        for (Produto produto : estoque.getLista()) {
-            if (produto.getCodigo() == cod) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private void Menu_Consulta_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_Consulta_ProdutoActionPerformed
@@ -248,10 +234,6 @@ public class Main extends javax.swing.JFrame {
     private void Menu_Edita_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_Edita_ProdutoActionPerformed
         abrir_detalhesProduto();
     }//GEN-LAST:event_Menu_Edita_ProdutoActionPerformed
-
-    private void Menu_ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_ProdutosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Menu_ProdutosActionPerformed
 
     private void Menu_SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_SairActionPerformed
         this.dispose();
@@ -304,5 +286,5 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel Menu_Titulo;
     protected static javax.swing.JDesktopPane Tela_Principal;
     // End of variables declaration//GEN-END:variables
-    Estoque estoque;
+    private Estoque estoque;
 }
