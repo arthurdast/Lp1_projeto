@@ -93,4 +93,6 @@ public class Produto implements Serializable { //Classe com os atributos das esp
         return "Produto{" + "codigo=" + codigo + ", nome=" + nome + ", quantidade=" + quantidade + ", custo=" + custo + ", preco=" + preco + ", secao=" + secao + ", unidade=" + unidade + ", imagem=" + imagem + '}';
     }
 
+   
+
 }

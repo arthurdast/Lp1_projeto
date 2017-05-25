@@ -9,6 +9,7 @@ import aplicação.ferramentas.ManipularImagem;
 import aplicação.dados.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Collections;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;

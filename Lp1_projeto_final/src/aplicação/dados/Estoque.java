@@ -29,7 +29,6 @@ public class Estoque implements Serializable { //Classe com ArrayList de produto
     }
 
     public void salvarDados() { //Salva os dados do ArrayList no arquivo Dados.ser
-        
         try {
             FileOutputStream out = new FileOutputStream("Dados.ser");
             ObjectOutputStream objOut = new ObjectOutputStream(out);
@@ -42,6 +41,7 @@ public class Estoque implements Serializable { //Classe com ArrayList de produto
             JOptionPane.showMessageDialog(null, "Erro ao ler arquivo", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
 
     private void carregarDados() {//Lê os dados do arquivo Dados.ser e armazena no ArrayList
         try {
@@ -49,9 +49,8 @@ public class Estoque implements Serializable { //Classe com ArrayList de produto
             this.lista = (ArrayList<Produto>) in.readObject();
         } catch (FileNotFoundException ex) {//Exceção gerada quando o arquivo não é encontrado
             JOptionPane.showMessageDialog(null, "Arquivo de dados não encontrado, arquivo limpo foi criado ", "Erro", JOptionPane.ERROR_MESSAGE);
-            salvarDados();
         } catch (IOException | ClassNotFoundException ex) {//Exceção gerada quando o arquivo não é lido corretamente
-            JOptionPane.showMessageDialog(null, ex, "Erro 1 ", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao ler arquivo", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -88,6 +87,5 @@ public class Estoque implements Serializable { //Classe com ArrayList de produto
         }
         return false;
     }
-    
-    
+
 }
