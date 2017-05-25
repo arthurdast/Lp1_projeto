@@ -278,7 +278,6 @@ public class Consulta_Produto extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = (DefaultTableModel) Tabela_Dados.getModel();
         modelo.setNumRows(0);
         for (Produto p : estoque.getLista()) {
-            System.out.println(p.getCodigo());
             modelo.addRow(preencheTabela(p));
         }
 

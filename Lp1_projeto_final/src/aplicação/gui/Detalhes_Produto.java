@@ -9,12 +9,8 @@ import aplicação.dados.Estoque;
 import aplicação.dados.Produto;
 import aplicação.ferramentas.ManipularImagem;
 import java.text.DecimalFormat;
-import javax.swing.ImageIcon;
 import static aplicação.gui.Main.Tela_Principal;
-import aplicação.gui.Main;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import aplicação.ferramentas.exceções.IDNotFoundException;
 
 /**
  *
@@ -24,6 +20,7 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Janela_Cadastra_Produto
+     * @param codigo
      */
     public Detalhes_Produto(int codigo) {
         this.codigo = codigo;
@@ -32,9 +29,6 @@ public class Detalhes_Produto extends javax.swing.JInternalFrame {
     }
 
     public void iniciaDetalhes(int codigo) {
-        int i = 0;
-        DecimalFormat d = new DecimalFormat("0.00");
-
         for (Produto p : estoque.getLista()) {
             try {
                 if (p.getCodigo() == codigo) {

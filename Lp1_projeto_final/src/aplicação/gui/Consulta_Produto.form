@@ -78,7 +78,6 @@
                                   <EmptySpace min="51" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="Tudo" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>

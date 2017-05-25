@@ -9,11 +9,10 @@ import aplicação.ferramentas.ManipularImagem;
 import aplicação.dados.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Collections;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import static aplicação.gui.Main.Tela_Principal;
-import java.text.DecimalFormat;
 
 /**
  *
@@ -105,10 +104,10 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
             }
         });
 
-        Unidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ud (Unidade)", "Kg (Quilograma)", "g (Gramas)", "mg (Miligramas)", "L (Litro)", "mL (Mililitro)", "m (Metro)", "m² (Metro Quadrado)" }));
+        Unidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum", "Ud (Unidade)", "Kg (Quilograma)", "g (Gramas)", "mg (Miligramas)", "L (Litro)", "mL (Mililitro)", "m (Metro)", "m² (Metro Quadrado)" }));
         Unidade.setSelectedItem(null);
 
-        Secao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bazar", "Bebida", "Biscoito", "Bomboniere", "Café & Cia", "Carnes", "Chá", "Congelado", "Diet & Light", "Feira", "Flores", "Frios e Laticínios", "Higiene e Perfumaria", "Leite & Iogurte", "Limpeza", "Massa", "Mercearia", "Mercearia Doce", "Molho & Condimento", "Orgânicos", "Padaria", "Pet Shop", "Vinho & Espumante e Cervejas Especiais" }));
+        Secao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum", "Bazar", "Bebida", "Biscoito", "Bomboniere", "Café & Cia", "Carnes", "Chá", "Congelado", "Diet & Light", "Feira", "Flores", "Frios e Laticínios", "Higiene e Perfumaria", "Leite & Iogurte", "Limpeza", "Massa", "Mercearia", "Mercearia Doce", "Molho & Condimento", "Orgânicos", "Padaria", "Pet Shop", "Vinho & Espumante e Cervejas Especiais" }));
         Secao.setSelectedItem(null);
 
         Salvar.setText("Salvar");
@@ -242,8 +241,7 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void iniciaDetalhes(int codigo) {
-        int i;
-        DecimalFormat d = new DecimalFormat("0.00");
+
         for (Produto p : estoque.getLista()) {
             if (p.getCodigo() == codigo) {
                 System.out.println("");
@@ -252,14 +250,23 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
                 Custo.setText(Double.toString(p.getCusto()));
                 Venda.setText(Double.toString(p.getPreco()));
                 Quantidade.setText(String.valueOf(p.getQuantidade()));
-                try{
+                try {
                     ManipularImagem.exibiImagemLabel(p.getImagem(), Imagem);
-                }catch(Exception e){}
-               
+                } catch (Exception e) {
+                }
+
             }
         }
     }
 
+    private boolean existeNaLista(int cod) {
+        for (Produto produto : estoque.getLista()) {
+            if (produto.getCodigo() == cod) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void Selecionar_ImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Selecionar_ImagemActionPerformed
         JFileChooser fc = new JFileChooser();
@@ -282,22 +289,35 @@ public class Editar_Produto extends javax.swing.JInternalFrame {
     }
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
-        for (Produto p : estoque.getLista()) {
-            if (p.getCodigo() == codigo) {
-                System.out.println("");
-                p.setCodigo(Integer.parseInt(Codigo.getText()));
-                p.setNome(Nome.getText());
-                p.setCusto(Double.parseDouble(Custo.getText()));
-                p.setPreco(Double.parseDouble(Venda.getText()));
-                p.setSecao(String.valueOf(Secao.getSelectedItem()));
-                p.setUnidade(String.valueOf(Unidade.getSelectedItem()));
-                p.setImagem(ManipularImagem.getImgBytes(imagem));
-                p.setQuantidade(Integer.parseInt(Quantidade.getText()));
-                estoque.salvarDados(); // att o arquivo txt
-                fecha_Janela();
-                JOptionPane.showMessageDialog(rootPane, "Produto editado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                break;
+
+        if (Secao.getSelectedItem() != null && Unidade.getSelectedItem() != null) {
+            try {
+                if (!existeNaLista(Integer.parseInt(Codigo.getText())) || codigo == Integer.parseInt(Codigo.getText())) {
+                    for (Produto p : estoque.getLista()) {
+                        if (p.getCodigo() == codigo) {
+                            p.setCodigo(Integer.parseInt(Codigo.getText()));
+                            p.setNome(Nome.getText());
+                            p.setCusto(Double.parseDouble(Custo.getText()));
+                            p.setPreco(Double.parseDouble(Venda.getText()));
+                            p.setSecao(String.valueOf(Secao.getSelectedItem()));
+                            p.setUnidade(String.valueOf(Unidade.getSelectedItem()));
+                            p.setImagem(ManipularImagem.getImgBytes(imagem));
+                            p.setQuantidade(Integer.parseInt(Quantidade.getText()));
+                            //Collections.sort(estoque.getLista());
+                            estoque.salvarDados(); // att o arquivo txt
+                            fecha_Janela();
+                            JOptionPane.showMessageDialog(rootPane, "Produto editado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Código ja cadastrado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(rootPane, "Porfavor digitar só números no campo de código", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seção ou unidade vazia.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_SalvarActionPerformed
 

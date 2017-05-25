@@ -9,6 +9,7 @@ import aplicação.ferramentas.ManipularImagem;
 import aplicação.dados.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Collections;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -264,6 +265,7 @@ public class Cadastra_Produto extends javax.swing.JInternalFrame {
             Produto p = retorna_Produto();
             if (!existeNaLista(p.getCodigo())) {
                 estoque.addProduto(p); // add um produto a lista
+                //Collections.sort(estoque.getLista());
                 estoque.salvarDados(); // att o arquivo txt
                 fecha_Janela();
                 JOptionPane.showMessageDialog(rootPane, "Produto cadastrado");

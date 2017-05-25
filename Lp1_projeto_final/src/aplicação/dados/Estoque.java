@@ -31,16 +31,13 @@ public class Estoque implements Serializable {
     }
 
     public void salvarDados() {
+        
         try {
             FileOutputStream out = new FileOutputStream("Dados.ser");
             ObjectOutputStream objOut = new ObjectOutputStream(out);
             objOut.writeObject(lista);
             objOut.flush();
             objOut.close();
-            System.out.println("aplicação.dados.Estoque.salvarDados()");
-            for (Produto produto : lista) {
-                System.out.println("CODIGO=" + produto.getCodigo());
-            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Estoque.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -52,10 +49,6 @@ public class Estoque implements Serializable {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream("Dados.ser"));
             this.lista = (ArrayList<Produto>) in.readObject();
-            System.out.println("aplicação.dados.Estoque.carregarDados()");
-            for (Produto produto : lista) {
-                System.out.println("CODIGO=" + produto.getCodigo());
-            }
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Arquivo de dados não encontrado, arquivo limpo foi criado ", "Erro 1 ", JOptionPane.ERROR_MESSAGE);
             salvarDados();
@@ -97,5 +90,6 @@ public class Estoque implements Serializable {
         }
         return false;
     }
-
+    
+    
 }
