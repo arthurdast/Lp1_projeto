@@ -49,6 +49,7 @@ public class Estoque implements Serializable { //Classe com ArrayList de produto
             this.lista = (ArrayList<Produto>) in.readObject();
         } catch (FileNotFoundException ex) {//Exceção gerada quando o arquivo não é encontrado
             JOptionPane.showMessageDialog(null, "Arquivo de dados não encontrado, arquivo limpo foi criado ", "Erro", JOptionPane.ERROR_MESSAGE);
+            salvarDados();
         } catch (IOException | ClassNotFoundException ex) {//Exceção gerada quando o arquivo não é lido corretamente
             JOptionPane.showMessageDialog(null, "Erro ao ler arquivo", "Erro", JOptionPane.ERROR_MESSAGE);
         }
